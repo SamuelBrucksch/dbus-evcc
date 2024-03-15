@@ -24,12 +24,29 @@ rm main.zip
 Within the project there is a file `/data/dbus-evcc/config.ini` - just change the values - most important is the deviceinstance under "DEFAULT" and host in section "ONPREMISE". More details below:
 
 | Section  | Config vlaue | Explanation |
+| Section  | Config value | Explanation |
 | ------------- | ------------- | ------------- |
 | DEFAULT  | AccessType | Fixed value 'OnPremise' |
 | DEFAULT  | SignOfLifeLog  | Time in minutes how often a status is added to the log-file `current.log` with log-level INFO |
 | DEFAULT  | Deviceinstance | Unique ID identifying the charger in Venus OS |
 | ONPREMISE  | Host | IP or hostname of EVCC |
 
+## If you have two load points in EVCC
+1. Follow the installation instructions above, but change the commands as follows:
+   ```
+   wget https://github.com/SamuelBrucksch/dbus-evcc/archive/refs/heads/main.zip
+   unzip main.zip "dbus-evcc-main/*" -d /data
+   mv /data/dbus-evcc-main /data/dbus-evcc-1
+   chmod a+x /data/dbus-evcc-1/install.sh
+   /data/dbus-evcc-1/install.sh
+   rm main.zip
+   ```
+   (Count up `dbus-evcc-1` for each loadpoint)
+2. Update the `dbus-evcc-1/config.ini`:
+   - The `deviceinstance` should be different for each loadpoint: Use `43` for the first. Use `44` for the second loadpoint...
+   - The `loadpointInstance` should be different for each loadpoint: Use `0` for the first. Use `1` for the second loadpoint...
+
+If you have more than two loadpoints, the procedure is the same, but the indexes should be counted up.
 
 ## Useful links
 Many thanks. @vikt0rm, @fabian-lauer, @trixing and @JuWorkshop project:
